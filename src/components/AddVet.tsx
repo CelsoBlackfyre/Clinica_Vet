@@ -9,7 +9,7 @@ type VetForm = Pick<Vet, 'nome' | 'sobrenome' | 'telefone'>
 const initialForm: VetForm = {
   nome: '',
   sobrenome: '',
-  telefone: '',
+  telefone: ''
 }
 
 const AddVet: React.FC = () => {
@@ -42,7 +42,10 @@ const AddVet: React.FC = () => {
       navigate('/vets')
     } catch (err: any) {
       console.error('Erro ao cadastrar veterinario', err)
-      const msg = err?.message || err?.response?.data?.error || 'Erro ao cadastrar o veterinario.'
+      const msg =
+        err?.message ||
+        err?.response?.data?.error ||
+        'Erro ao cadastrar o veterinario.'
       setError(msg)
       showToast(msg, 'error')
     } finally {
@@ -54,7 +57,9 @@ const AddVet: React.FC = () => {
     <div className="max-w-2xl">
       <div className="rounded-xl bg-white p-8 shadow">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Cadastrar Veterinario</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            Cadastrar Veterinario
+          </h2>
           <button
             type="button"
             onClick={() => navigate('/vets')}
@@ -72,7 +77,10 @@ const AddVet: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="nome" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="nome"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Nome *
             </label>
             <input
@@ -88,7 +96,10 @@ const AddVet: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="sobrenome" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="sobrenome"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Sobrenome
             </label>
             <input
@@ -103,7 +114,10 @@ const AddVet: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="telefone" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="telefone"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Telefone
             </label>
             <input

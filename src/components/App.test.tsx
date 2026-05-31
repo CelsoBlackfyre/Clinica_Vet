@@ -6,17 +6,17 @@ import { ToastProvider } from './Toast'
 
 vi.mock('api/api', () => ({
   clientesApi: {
-    getAll: vi.fn().mockResolvedValue({ data: { clientes: [] } }),
+    getAll: vi.fn().mockResolvedValue({ data: { clientes: [] } })
   },
   petsApi: {
-    getAll: vi.fn().mockResolvedValue({ data: { pets: [] } }),
+    getAll: vi.fn().mockResolvedValue({ data: { pets: [] } })
   },
   vetsApi: {
-    getAll: vi.fn().mockResolvedValue({ data: { vets: [] } }),
+    getAll: vi.fn().mockResolvedValue({ data: { vets: [] } })
   },
   consultasApi: {
-    getAll: vi.fn().mockResolvedValue({ data: { consultas: [] } }),
-  },
+    getAll: vi.fn().mockResolvedValue({ data: { consultas: [] } })
+  }
 }))
 
 describe('<App /> routing', () => {
@@ -40,7 +40,9 @@ describe('<App /> routing', () => {
   it('renders entity routes inside the shared layout', async () => {
     renderAt('/clientes')
 
-    expect(await screen.findByRole('heading', { name: 'Clientes' })).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: 'Clientes' })
+    ).toBeInTheDocument()
     expect(screen.getByText('Pets')).toBeInTheDocument()
     expect(screen.getByText('Consultas')).toBeInTheDocument()
   })

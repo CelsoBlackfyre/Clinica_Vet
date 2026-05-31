@@ -17,7 +17,9 @@ export default function Vets() {
       const res = await vetsApi.getAll()
       setVets(res.data.vets || [])
     } catch (err: any) {
-      setError(err?.message || 'Erro ao carregar os veterinários. Tente novamente.')
+      setError(
+        err?.message || 'Erro ao carregar os veterinários. Tente novamente.'
+      )
     } finally {
       setIsLoading(false)
     }
@@ -28,14 +30,18 @@ export default function Vets() {
   }, [])
 
   const handleDelete = async (id: number, nome: string) => {
-    if (!confirm(`Tem certeza que deseja excluir o veterinário "${nome}"?`)) return
+    if (!confirm(`Tem certeza que deseja excluir o veterinário "${nome}"?`))
+      return
 
     try {
       await vetsApi.delete(id)
       setVets((prev) => prev.filter((v) => v.id !== id))
       showToast('Veterinário excluído com sucesso', 'success')
     } catch (err: any) {
-      showToast(err?.message || 'Não foi possível excluir o veterinário.', 'error')
+      showToast(
+        err?.message || 'Não foi possível excluir o veterinário.',
+        'error'
+      )
     }
   }
 
@@ -80,7 +86,9 @@ export default function Vets() {
 
         {vets.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="mb-4 text-gray-500">Nenhum veterinário cadastrado ainda.</p>
+            <p className="mb-4 text-gray-500">
+              Nenhum veterinário cadastrado ainda.
+            </p>
             <Link
               to="/vets/new"
               className="inline-block rounded-md bg-purple-800 px-6 py-2 text-white hover:bg-purple-700"
@@ -115,7 +123,9 @@ export default function Vets() {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm">
                       <button
-                        onClick={() => handleDelete(vet.id, `${vet.nome} ${vet.sobrenome}`)}
+                        onClick={() =>
+                          handleDelete(vet.id, `${vet.nome} ${vet.sobrenome}`)
+                        }
                         className="rounded px-3 py-1 text-red-600 hover:bg-red-50 hover:text-red-700"
                       >
                         Excluir

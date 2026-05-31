@@ -19,7 +19,7 @@ const initialForm: PetForm = {
   idade: 0,
   peso: 0,
   raca: '',
-  cliente_id: 0,
+  cliente_id: 0
 }
 
 const AddPet: React.FC = () => {
@@ -101,7 +101,9 @@ const AddPet: React.FC = () => {
     <div className="max-w-2xl">
       <div className="rounded-xl bg-white p-8 shadow">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Cadastrar Novo Pet</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            Cadastrar Novo Pet
+          </h2>
           <button
             type="button"
             onClick={() => navigate('/pets')}
@@ -119,7 +121,10 @@ const AddPet: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="nome" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="nome"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Nome do Pet *
             </label>
             <input
@@ -136,7 +141,10 @@ const AddPet: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="tipo" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="tipo"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Tipo
               </label>
               <input
@@ -150,7 +158,10 @@ const AddPet: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="raca" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="raca"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Raça
               </label>
               <input
@@ -167,7 +178,10 @@ const AddPet: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="idade" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="idade"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Idade (anos)
               </label>
               <input
@@ -181,7 +195,10 @@ const AddPet: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="peso" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="peso"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Peso (kg)
               </label>
               <input
@@ -198,7 +215,10 @@ const AddPet: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="cliente_id" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="cliente_id"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Dono do Pet *
             </label>
             <select

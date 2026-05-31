@@ -1,13 +1,15 @@
 # Development Dockerfile for Go backend with Air hot reload
-FROM golang:1.22-alpine
+FROM golang:1.26-alpine
 
 WORKDIR /app
+
+ARG AIR_VERSION=latest
 
 # Install required tools
 RUN apk add --no-cache git curl
 
 # Install Air for hot reload
-RUN go install github.com/air-verse/air@latest
+RUN go install github.com/air-verse/air@${AIR_VERSION}
 
 # Copy go mod files first (for caching)
 COPY go.mod go.sum ./

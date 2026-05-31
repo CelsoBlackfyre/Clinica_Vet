@@ -7,7 +7,7 @@ import type {
   ClientesResponse,
   PetsResponse,
   VetsResponse,
-  ConsultasResponse,
+  ConsultasResponse
 } from 'types'
 
 // ========================
@@ -15,11 +15,13 @@ import type {
 // ========================
 export const clientesApi = {
   getAll: () => apiClient.get<ClientesResponse>('/clientes'),
-  getById: (id: number) => apiClient.get<{ cliente: Cliente }>(`/clientes/${id}`),
-  create: (data: Partial<Cliente>) => apiClient.post<{ cliente: Cliente }>('/clientes', data),
+  getById: (id: number) =>
+    apiClient.get<{ cliente: Cliente }>(`/clientes/${id}`),
+  create: (data: Partial<Cliente>) =>
+    apiClient.post<{ cliente: Cliente }>('/clientes', data),
   update: (id: number, data: Partial<Cliente>) =>
     apiClient.put<{ cliente: Cliente }>(`/clientes/${id}`, data),
-  delete: (id: number) => apiClient.delete(`/clientes/${id}`),
+  delete: (id: number) => apiClient.delete(`/clientes/${id}`)
 }
 
 // ========================
@@ -31,7 +33,7 @@ export const petsApi = {
   create: (data: Partial<Pet>) => apiClient.post<{ pet: Pet }>('/pets', data),
   update: (id: number, data: Partial<Pet>) =>
     apiClient.put<{ pet: Pet }>(`/pets/${id}`, data),
-  delete: (id: number) => apiClient.delete(`/pets/${id}`),
+  delete: (id: number) => apiClient.delete(`/pets/${id}`)
 }
 
 // ========================
@@ -43,7 +45,7 @@ export const vetsApi = {
   create: (data: Partial<Vet>) => apiClient.post<{ vet: Vet }>('/vets', data),
   update: (id: number, data: Partial<Vet>) =>
     apiClient.put<{ vet: Vet }>(`/vets/${id}`, data),
-  delete: (id: number) => apiClient.delete(`/vets/${id}`),
+  delete: (id: number) => apiClient.delete(`/vets/${id}`)
 }
 
 // ========================
@@ -51,11 +53,13 @@ export const vetsApi = {
 // ========================
 export const consultasApi = {
   getAll: () => apiClient.get<ConsultasResponse>('/consultas'),
-  getById: (id: number) => apiClient.get<{ consulta: Consulta }>(`/consultas/${id}`),
-  create: (data: Partial<Consulta>) => apiClient.post<{ consulta: Consulta }>('/consultas', data),
+  getById: (id: number) =>
+    apiClient.get<{ consulta: Consulta }>(`/consultas/${id}`),
+  create: (data: Partial<Consulta>) =>
+    apiClient.post<{ consulta: Consulta }>('/consultas', data),
   update: (id: number, data: Partial<Consulta>) =>
     apiClient.put<{ consulta: Consulta }>(`/consultas/${id}`, data),
-  delete: (id: number) => apiClient.delete(`/consultas/${id}`),
+  delete: (id: number) => apiClient.delete(`/consultas/${id}`)
 }
 
 // Convenience exports (flat) - useful for quick migration
@@ -63,7 +67,7 @@ export const api = {
   clientes: clientesApi,
   pets: petsApi,
   vets: vetsApi,
-  consultas: consultasApi,
+  consultas: consultasApi
 }
 
 export default api

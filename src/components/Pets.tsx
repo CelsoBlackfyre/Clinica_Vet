@@ -17,7 +17,7 @@ export default function Pets() {
     try {
       const [petsRes, clientesRes] = await Promise.all([
         petsApi.getAll(),
-        clientesApi.getAll(),
+        clientesApi.getAll()
       ])
 
       const petsData = petsRes.data.pets || []

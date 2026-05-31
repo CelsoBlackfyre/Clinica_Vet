@@ -80,7 +80,9 @@ export default function Clientes() {
 
         {clientes.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="mb-4 text-gray-500">Nenhum cliente cadastrado ainda.</p>
+            <p className="mb-4 text-gray-500">
+              Nenhum cliente cadastrado ainda.
+            </p>
             <Link
               to="/clientes/new"
               className="inline-block rounded-md bg-purple-800 px-6 py-2 text-white hover:bg-purple-700"
@@ -133,7 +135,12 @@ export default function Clientes() {
                     </td>
                     <td className="whitespace-nowrap px-4 py-4 text-right text-sm">
                       <button
-                        onClick={() => handleDelete(cliente.id, `${cliente.nome} ${cliente.sobrenome}`)}
+                        onClick={() =>
+                          handleDelete(
+                            cliente.id,
+                            `${cliente.nome} ${cliente.sobrenome}`
+                          )
+                        }
                         className="rounded px-3 py-1 text-red-600 hover:bg-red-50 hover:text-red-700"
                       >
                         Excluir

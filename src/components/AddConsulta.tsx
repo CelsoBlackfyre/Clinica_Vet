@@ -15,7 +15,7 @@ const initialForm: ConsultaForm = {
   data: '',
   observacao: '',
   pet_id: 0,
-  vet_id: 0,
+  vet_id: 0
 }
 
 const AddConsulta: React.FC = () => {
@@ -32,7 +32,10 @@ const AddConsulta: React.FC = () => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
-        const [petsRes, vetsRes] = await Promise.all([petsApi.getAll(), vetsApi.getAll()])
+        const [petsRes, vetsRes] = await Promise.all([
+          petsApi.getAll(),
+          vetsApi.getAll()
+        ])
         setPets(petsRes.data.pets || [])
         setVets(vetsRes.data.vets || [])
       } catch (err) {
@@ -47,7 +50,9 @@ const AddConsulta: React.FC = () => {
   }, [])
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target
 
@@ -79,7 +84,10 @@ const AddConsulta: React.FC = () => {
       navigate('/consultas')
     } catch (err: any) {
       console.error('Erro ao criar consulta', err)
-      const msg = err?.message || err?.response?.data?.error || 'Erro ao agendar a consulta.'
+      const msg =
+        err?.message ||
+        err?.response?.data?.error ||
+        'Erro ao agendar a consulta.'
       setError(msg)
       showToast(msg, 'error')
     } finally {
@@ -117,7 +125,10 @@ const AddConsulta: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="data" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="data"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Data e Hora *
             </label>
             <input
@@ -132,7 +143,10 @@ const AddConsulta: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="pet_id" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="pet_id"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Pet *
             </label>
             <select
@@ -155,7 +169,10 @@ const AddConsulta: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="vet_id" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="vet_id"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Veterinario *
             </label>
             <select
@@ -178,7 +195,10 @@ const AddConsulta: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="observacao" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="observacao"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Observacoes / Motivo da Consulta
             </label>
             <textarea

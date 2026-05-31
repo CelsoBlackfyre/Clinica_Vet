@@ -13,13 +13,13 @@ const navItems = [
   { to: '/clientes', label: 'Clientes', icon: PeopleAltIcon },
   { to: '/pets', label: 'Pets', icon: PetsIcon },
   { to: '/vets', label: 'Veterinarios', icon: MasksIcon },
-  { to: '/consultas', label: 'Consultas', icon: EventNoteIcon },
+  { to: '/consultas', label: 'Consultas', icon: EventNoteIcon }
 ]
 
 const disabledItems = [
   { label: 'Editar Perfil', icon: EditIcon },
   { label: 'Configuracoes', icon: SettingsIcon },
-  { label: 'Sair', icon: ExitToAppIcon },
+  { label: 'Sair', icon: ExitToAppIcon }
 ]
 
 export default function Sidebar() {
@@ -32,7 +32,10 @@ export default function Sidebar() {
           </div>
 
           {navItems.map(({ to, label, icon: Icon }) => (
-            <div key={to} className="group flex w-full select-none items-center gap-x-1.5">
+            <div
+              key={to}
+              className="group flex w-full select-none items-center gap-x-1.5"
+            >
               <div className="relative h-8 w-1 overflow-hidden rounded-xl bg-transparent transition-colors duration-200">
                 <div className="absolute left-0 top-0 h-[102%] w-full translate-y-full bg-violet-600 transition-all duration-300 group-hover:translate-y-0" />
               </div>
@@ -57,7 +60,10 @@ export default function Sidebar() {
           </div>
 
           {disabledItems.map(({ label, icon: Icon }) => (
-            <div key={label} className="group flex w-full select-none items-center gap-x-1.5">
+            <div
+              key={label}
+              className="group flex w-full select-none items-center gap-x-1.5"
+            >
               <div className="relative h-8 w-1 overflow-hidden rounded-xl bg-transparent transition-colors duration-200">
                 <div className="absolute left-0 top-0 h-[102%] w-full translate-y-full bg-violet-600 transition-all duration-300" />
               </div>

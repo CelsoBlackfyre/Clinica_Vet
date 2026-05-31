@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -23,6 +21,7 @@ services:
       - clinica_vet_net
 
   backend:
+    image: clinica_vet_backend_dev
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -44,11 +43,19 @@ services:
     volumes:
       - ./server:/app
       - go_mod_cache:/go/pkg/mod
+      - go_build_cache:/root/.cache/go-build
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     networks:
       - clinica_vet_net
-    command: ["air"]   # Hot reload via air (see server/Dockerfile and air.toml)
+    command: ["air"]
 
   frontend:
+    image: clinica_vet_frontend_dev
     build:
       context: .
       dockerfile: Dockerfile.frontend
@@ -60,15 +67,72 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost:8080   # For browser access
+      - VITE_API_URL=http://localhost:${SERVER_PORT:-8080}
     networks:
       - clinica_vet_net
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+
+  frontend-test:
+    image: clinica_vet_frontend_dev
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    profiles: ["tools"]
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:${SERVER_PORT:-8080}
+    networks:
+      - clinica_vet_net
+    command: ["npm", "test", "--", "--run"]
+
+  frontend-typecheck:
+    image: clinica_vet_frontend_dev
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    profiles: ["tools"]
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - clinica_vet_net
+    command: ["npm", "run", "typecheck"]
+
+  frontend-build:
+    image: clinica_vet_frontend_dev
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    profiles: ["tools"]
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - clinica_vet_net
+    command: ["npm", "run", "build"]
+
+  backend-test:
+    image: clinica_vet_backend_dev
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    profiles: ["tools"]
+    volumes:
+      - ./server:/app
+      - go_mod_cache:/go/pkg/mod
+      - go_build_cache:/root/.cache/go-build
+    networks:
+      - clinica_vet_net
+    command: ["go", "test", "./..."]
 
 volumes:
   mysql_data:
   go_mod_cache:
+  go_build_cache:
 
 networks:
   clinica_vet_net:

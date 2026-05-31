@@ -36,6 +36,10 @@ func main() {
 
 	database.Connect()
 
+	r.GET("/healthz", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok"})
+	})
+
 	// Rotas de Pets
 	r.GET("/pets", handlers.GetPets)
 	r.GET("/pets/:id", handlers.GetPet)

@@ -30,7 +30,8 @@ export default function Home() {
       </div>
 
       <p className="mt-8 max-w-md text-center text-gray-600">
-        Sistema de gestão para clínica veterinária. Gerencie clientes, pets, veterinários e consultas em um só lugar.
+        Sistema de gestão para clínica veterinária. Gerencie clientes, pets,
+        veterinários e consultas em um só lugar.
       </p>
     </div>
   )

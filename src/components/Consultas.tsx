@@ -35,7 +35,10 @@ export default function Consultas() {
       setConsultas((prev) => prev.filter((c) => c.id !== id))
       showToast('Consulta cancelada com sucesso', 'success')
     } catch (err: any) {
-      showToast(err?.message || 'Não foi possível cancelar a consulta.', 'error')
+      showToast(
+        err?.message || 'Não foi possível cancelar a consulta.',
+        'error'
+      )
     }
   }
 
@@ -44,7 +47,7 @@ export default function Consultas() {
     const date = new Date(dateStr)
     return date.toLocaleString('pt-BR', {
       dateStyle: 'short',
-      timeStyle: 'short',
+      timeStyle: 'short'
     })
   }
 
@@ -134,7 +137,9 @@ export default function Consultas() {
                         : `Vet #${consulta.vet_id}`}
                     </td>
                     <td className="max-w-xs px-6 py-4 text-sm text-gray-600">
-                      <span className="line-clamp-2">{consulta.observacao || '—'}</span>
+                      <span className="line-clamp-2">
+                        {consulta.observacao || '—'}
+                      </span>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm">
                       <button

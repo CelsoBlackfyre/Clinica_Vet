@@ -8,21 +8,21 @@ Sistema completo para gerenciamento de clínica veterinária com frontend em Rea
 ## Tecnologias
 
 **Frontend**
-- Vite + React 18 + TypeScript
+- Vite + React 19 + TypeScript
 - Tailwind CSS + Material UI (em transição para shadcn/ui)
-- React Router v6 (em migração a partir de wouter)
+- React Router v7
 - Axios + Vitest + Testing Library
 
 **Backend**
-- Go 1.22 + Gin
+- Go 1.26 + Gin
 - GORM + MySQL
 - JWT (planejado para Fase 5)
 
 ## Como Rodar
 
-### Opção Recomendada: Docker Compose (Fase 2)
+### Opção Recomendada: Docker Compose
 
-Esta é agora a forma mais fácil e confiável de rodar o projeto completo.
+Esta é agora a forma padrão de desenvolvimento. Você não precisa ter Node, Go ou MySQL instalados no host para rodar a aplicação e validar o frontend.
 
 ```bash
 # 1. Configure as variáveis de ambiente
@@ -37,15 +37,38 @@ docker compose up --build
 
 - **Frontend**: http://localhost:5173
 - **Backend**: http://localhost:8080
+- **Healthcheck**: http://localhost:8080/healthz
 - **MySQL**: localhost:3306 (user: clinica / pass: clinica123 por padrão)
 
-O backend usa hot reload via **Air** dentro do container.
+O backend usa hot reload via **Air** dentro do container. O frontend usa o dev server do Vite exposto em `0.0.0.0`.
 
 Para parar:
 ```bash
 make down
 # ou
 docker compose down
+```
+
+### Validação dentro do Docker
+
+Use estes comandos para evitar dependência de ferramentas instaladas no host:
+
+```bash
+make compose-check       # valida docker-compose.yml
+make test-frontend       # roda Vitest
+make typecheck           # roda TypeScript sem emitir arquivos
+make build-frontend      # gera build de produção do frontend
+make test-backend        # roda go test ./...
+```
+
+Equivalentes diretos:
+
+```bash
+docker compose config
+docker compose run --rm frontend-test
+docker compose run --rm frontend-typecheck
+docker compose run --rm frontend-build
+docker compose run --rm backend-test
 ```
 
 ### Desenvolvimento Local (sem Docker)

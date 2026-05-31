@@ -6,8 +6,8 @@ export const apiClient = axios.create({
   baseURL: API_URL,
   timeout: 15000,
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 })
 
 // Request interceptor (useful later for auth tokens)
@@ -45,7 +45,7 @@ apiClient.interceptors.response.use(
       ...error,
       message,
       status,
-      originalError: error,
+      originalError: error
     }
 
     return Promise.reject(normalizedError)

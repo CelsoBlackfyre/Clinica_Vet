@@ -1,0 +1,13 @@
+.git
+.github
+.vscode
+.vitest
+dist
+node_modules
+npm-debug.log*
+Dockerfile*
+docker-compose*.yml
+server/tmp
+server/build-errors.log
+.env
+

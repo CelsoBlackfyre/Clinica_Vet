@@ -12,7 +12,7 @@ const initialForm: ClienteForm = {
   cpf: '',
   telefone: '',
   endereco: '',
-  email: '',
+  email: ''
 }
 
 const AddCliente: React.FC = () => {
@@ -45,7 +45,10 @@ const AddCliente: React.FC = () => {
       navigate('/clientes')
     } catch (err: any) {
       console.error('Erro ao cadastrar cliente', err)
-      const msg = err?.message || err?.response?.data?.error || 'Erro ao cadastrar o cliente.'
+      const msg =
+        err?.message ||
+        err?.response?.data?.error ||
+        'Erro ao cadastrar o cliente.'
       setError(msg)
       showToast(msg, 'error')
     } finally {
@@ -57,7 +60,9 @@ const AddCliente: React.FC = () => {
     <div className="max-w-2xl">
       <div className="rounded-xl bg-white p-8 shadow">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">Cadastrar Cliente</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            Cadastrar Cliente
+          </h2>
           <button
             type="button"
             onClick={() => navigate('/clientes')}
@@ -76,7 +81,10 @@ const AddCliente: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="nome" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="nome"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Nome *
               </label>
               <input
@@ -90,7 +98,10 @@ const AddCliente: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="sobrenome" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="sobrenome"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Sobrenome
               </label>
               <input
@@ -106,7 +117,10 @@ const AddCliente: React.FC = () => {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="cpf" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="cpf"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 CPF
               </label>
               <input
@@ -119,7 +133,10 @@ const AddCliente: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="telefone" className="mb-1 block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="telefone"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Telefone
               </label>
               <input
@@ -134,7 +151,10 @@ const AddCliente: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -148,7 +168,10 @@ const AddCliente: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="endereco" className="mb-1 block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="endereco"
+              className="mb-1 block text-sm font-medium text-gray-700"
+            >
               Endereço
             </label>
             <input

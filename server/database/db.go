@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -25,9 +26,21 @@ func Connect() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		user, password, host, port, dbname)
 
-	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	var database *gorm.DB
+	var err error
+
+	for attempt := 1; attempt <= 30; attempt++ {
+		database, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		if err == nil {
+			break
+		}
+
+		log.Printf("Database connection attempt %d/30 failed: %v", attempt, err)
+		time.Sleep(2 * time.Second)
+	}
+
 	if err != nil {
-		log.Printf("Failed to connect to database: %v", err)
+		log.Printf("Failed to connect to database after retries: %v", err)
 		panic("Erro ao conectar ao banco de dados. Check your DB credentials in .env")
 	}
 

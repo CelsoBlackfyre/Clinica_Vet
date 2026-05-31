@@ -1,0 +1,7 @@
+.git
+tmp
+build-errors.log
+vendor
+node_modules
+.env
+

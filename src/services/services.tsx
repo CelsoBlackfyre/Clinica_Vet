@@ -1,19 +1,9 @@
 // Backward-compatible services layer.
 // New code should prefer importing from 'api/api' directly for better control.
 
-import {
-  clientesApi,
-  petsApi,
-  vetsApi,
-  consultasApi,
-} from 'api/api'
+import { clientesApi, petsApi, vetsApi, consultasApi } from 'api/api'
 
-import type {
-  Cliente,
-  Pet,
-  Vet,
-  Consulta,
-} from 'types'
+import type { Cliente, Pet, Vet, Consulta } from 'types'
 
 // ========================
 // CLIENTES (legacy names kept for compatibility)
@@ -52,9 +42,4 @@ export const delConsulta = consultasApi.delete
 export const updateConsulta = consultasApi.update
 
 // Re-export the new clean APIs for gradual migration
-export {
-  clientesApi,
-  petsApi,
-  vetsApi,
-  consultasApi,
-} from 'api/api'
+export { clientesApi, petsApi, vetsApi, consultasApi } from 'api/api'
