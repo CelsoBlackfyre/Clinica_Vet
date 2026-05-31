@@ -1,6 +1,3 @@
-# Air configuration for hot reload in development
-# https://github.com/air-verse/air
-
 root = "."
 tmp_dir = "tmp"
 

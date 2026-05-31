@@ -9,7 +9,6 @@ import (
 	"ClinicaVet/models"
 )
 
-// Buscar Consulta
 func GetConsulta(c *gin.Context) {
 	var consulta models.Consulta
 	id := c.Param("id")
@@ -21,14 +20,12 @@ func GetConsulta(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"consulta": consulta})
 }
 
-// Listar Consultas
 func GetConsultas(c *gin.Context) {
 	var consultas []models.Consulta
 	database.BD.Find(&consultas)
 	c.JSON(http.StatusOK, gin.H{"consultas": consultas})
 }
 
-// Criar Consulta
 func NovaConsulta(c *gin.Context) {
 	var consulta models.Consulta
 	if err := c.ShouldBindJSON(&consulta); err != nil {
@@ -39,7 +36,6 @@ func NovaConsulta(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"consulta": consulta})
 }
 
-// Atualizar Consulta
 func AtualizarConsulta(c *gin.Context) {
 	var consulta models.Consulta
 	id := c.Param("id")
@@ -56,7 +52,6 @@ func AtualizarConsulta(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"consulta": consulta})
 }
 
-// Deletar Consulta
 func DeletarConsulta(c *gin.Context) {
 	var consulta models.Consulta
 	id := c.Param("id")

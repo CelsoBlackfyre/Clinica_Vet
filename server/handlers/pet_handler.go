@@ -9,14 +9,12 @@ import (
 	"ClinicaVet/models"
 )
 
-// Listar Pets
 func GetPets(c *gin.Context) {
 	var pets []models.Pet
 	database.BD.Find(&pets)
 	c.JSON(http.StatusOK, gin.H{"pets": pets})
 }
 
-// Buscar Pet
 func GetPet(c *gin.Context) {
 	var pet models.Pet
 	id := c.Param("id")
@@ -31,7 +29,6 @@ func GetPet(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"pet": pet})
 }
 
-// Criar Pet
 func CriarPet(c *gin.Context) {
 	var pet models.Pet
 
@@ -44,7 +41,6 @@ func CriarPet(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"pet": pet})
 }
 
-// Deletar Pet
 func DeletarPet(c *gin.Context) {
 	var pet models.Pet
 	id := c.Param("id")
@@ -60,7 +56,6 @@ func DeletarPet(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Pet deletado com sucesso"})
 }
 
-// Atualizar Pet
 func AtualizarPet(c *gin.Context) {
 	var pet models.Pet
 	id := c.Param("id")

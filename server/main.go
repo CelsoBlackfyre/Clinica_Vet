@@ -14,17 +14,14 @@ import (
 )
 
 func main() {
-	// Load .env file if it exists (graceful if missing)
 	if err := godotenv.Load(); err != nil {
 		log.Println("No .env file found or error loading it. Using environment variables / defaults.")
 	}
 
 	r := gin.Default()
 
-	// Serve static assets (ensure the path is correct when running the binary)
 	r.Static("/assets", "./assets")
 
-	// Configurable CORS (much safer than cors.Default())
 	allowedOrigins := getAllowedOrigins()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     allowedOrigins,
@@ -40,21 +37,18 @@ func main() {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
-	// Rotas de Pets
 	r.GET("/pets", handlers.GetPets)
 	r.GET("/pets/:id", handlers.GetPet)
 	r.POST("/pets", handlers.CriarPet)
 	r.PUT("/pets/:id", handlers.AtualizarPet)
 	r.DELETE("/pets/:id", handlers.DeletarPet)
 
-	// Rotas de Vets
 	r.GET("/vets", handlers.GetVets)
 	r.GET("/vets/:id", handlers.GetVet)
 	r.POST("/vets", handlers.CriarVet)
 	r.PUT("/vets/:id", handlers.AtualizarVet)
 	r.DELETE("/vets/:id", handlers.DeletarVet)
 
-	// Rotas de Consultas
 	r.GET("/consultas", handlers.GetConsultas)
 	r.GET("/consultas/:id", handlers.GetConsulta)
 	r.POST("/consultas", handlers.NovaConsulta)
@@ -72,7 +66,6 @@ func main() {
 	r.Run(":" + port)
 }
 
-// getAllowedOrigins reads ALLOWED_ORIGINS from env (comma-separated)
 func getAllowedOrigins() []string {
 	originsStr := getEnv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
 	if originsStr == "" {
@@ -85,7 +78,6 @@ func getAllowedOrigins() []string {
 	return origins
 }
 
-// getEnv helper (duplicated here to avoid import cycle during early bootstrap)
 func getEnv(key, fallback string) string {
 	if value, exists := os.LookupEnv(key); exists && value != "" {
 		return value

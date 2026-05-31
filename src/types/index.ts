@@ -1,6 +1,3 @@
-// Shared types matching the backend Go models (after ID unification)
-// All primary keys are now "id" (uint in Go → number in JSON)
-
 export interface Cliente {
   id: number
   nome: string
@@ -23,7 +20,6 @@ export interface Pet {
   cliente_id: number
   data_cadastro: string
   data_atualizacao: string
-  // Relations (may be empty depending on backend preload)
   cliente?: Cliente
   consultas?: Consulta[]
 }
@@ -49,7 +45,6 @@ export interface Consulta {
   vet?: Vet
 }
 
-// API Response wrappers (backend returns these)
 export interface ClientesResponse {
   clientes: Cliente[]
 }

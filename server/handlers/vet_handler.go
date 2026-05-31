@@ -9,14 +9,12 @@ import (
 	"ClinicaVet/models"
 )
 
-// Listar Vets
 func GetVets(c *gin.Context) {
 	var vets []models.Vet
 	database.BD.Find(&vets)
 	c.JSON(http.StatusOK, gin.H{"vets": vets})
 }
 
-// Listar Vet por ID
 func GetVet(c *gin.Context) {
 	var vet models.Vet
 	id := c.Param("id")
@@ -28,7 +26,6 @@ func GetVet(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"vet": vet})
 }
 
-// Criar Vet
 func CriarVet(c *gin.Context) {
 	var vet models.Vet
 	if err := c.ShouldBindJSON(&vet); err != nil {
@@ -39,7 +36,6 @@ func CriarVet(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"vet": vet})
 }
 
-// Atualizar Vet
 func AtualizarVet(c *gin.Context) {
 	var vet models.Vet
 	id := c.Param("id")

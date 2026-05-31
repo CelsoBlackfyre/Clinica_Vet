@@ -15,8 +15,6 @@ import (
 var BD *gorm.DB
 
 func Connect() {
-	// Load configuration from environment variables with sensible defaults
-	// (godotenv should be loaded in main.go before calling Connect)
 	user := getEnv("DB_USER", "root")
 	password := getEnv("DB_PASSWORD", "sql")
 	host := getEnv("DB_HOST", "127.0.0.1")
@@ -44,7 +42,6 @@ func Connect() {
 		panic("Erro ao conectar ao banco de dados. Check your DB credentials in .env")
 	}
 
-	// AutoMigrate in explicit order to respect foreign key dependencies
 	err = database.AutoMigrate(&models.Cliente{})
 	if err != nil {
 		panic("Erro ao migrar o banco de dados (Cliente): " + err.Error())
@@ -69,7 +66,6 @@ func Connect() {
 	log.Println("Database connected and migrated successfully")
 }
 
-// getEnv returns the value of the environment variable or the fallback
 func getEnv(key, fallback string) string {
 	if value, exists := os.LookupEnv(key); exists && value != "" {
 		return value

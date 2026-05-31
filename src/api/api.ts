@@ -10,9 +10,6 @@ import type {
   ConsultasResponse
 } from 'types'
 
-// ========================
-// CLIENTES
-// ========================
 export const clientesApi = {
   getAll: () => apiClient.get<ClientesResponse>('/clientes'),
   getById: (id: number) =>
@@ -24,9 +21,6 @@ export const clientesApi = {
   delete: (id: number) => apiClient.delete(`/clientes/${id}`)
 }
 
-// ========================
-// PETS
-// ========================
 export const petsApi = {
   getAll: () => apiClient.get<PetsResponse>('/pets'),
   getById: (id: number) => apiClient.get<{ pet: Pet }>(`/pets/${id}`),
@@ -36,9 +30,6 @@ export const petsApi = {
   delete: (id: number) => apiClient.delete(`/pets/${id}`)
 }
 
-// ========================
-// VETS
-// ========================
 export const vetsApi = {
   getAll: () => apiClient.get<VetsResponse>('/vets'),
   getById: (id: number) => apiClient.get<{ vet: Vet }>(`/vets/${id}`),
@@ -48,9 +39,6 @@ export const vetsApi = {
   delete: (id: number) => apiClient.delete(`/vets/${id}`)
 }
 
-// ========================
-// CONSULTAS
-// ========================
 export const consultasApi = {
   getAll: () => apiClient.get<ConsultasResponse>('/consultas'),
   getById: (id: number) =>
@@ -62,7 +50,6 @@ export const consultasApi = {
   delete: (id: number) => apiClient.delete(`/consultas/${id}`)
 }
 
-// Convenience exports (flat) - useful for quick migration
 export const api = {
   clientes: clientesApi,
   pets: petsApi,

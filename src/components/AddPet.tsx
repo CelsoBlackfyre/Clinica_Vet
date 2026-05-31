@@ -31,13 +31,11 @@ const AddPet: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch clients for the owner dropdown
   useEffect(() => {
     const fetchClientes = async () => {
       setIsLoadingClients(true)
       try {
         const res = await clientesApi.getAll()
-        // Backend returns { clientes: [...] }
         setClientes(res.data.clientes || [])
       } catch (err) {
         console.error('Erro ao buscar clientes', err)
@@ -80,7 +78,6 @@ const AddPet: React.FC = () => {
     try {
       await petsApi.create(form)
 
-      // Success - reset form and navigate back to pets list
       setForm(initialForm)
       showToast('Pet cadastrado com sucesso!', 'success')
       navigate('/pets')

@@ -8,14 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Listar Clientes
 func GetClientes(c *gin.Context) {
 	var clientes []models.Cliente
 	database.BD.Find(&clientes)
 	c.JSON(http.StatusOK, gin.H{"clientes": clientes})
 }
 
-// Buscar Cliente
 func GetCliente(c *gin.Context) {
 	var cliente models.Cliente
 	id := c.Param("id")
@@ -27,7 +25,6 @@ func GetCliente(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"cliente": cliente})
 }
 
-// Criar Cliente
 func CriarCliente(c *gin.Context) {
 	var cliente models.Cliente
 	if err := c.ShouldBindJSON(&cliente); err != nil {
@@ -38,7 +35,6 @@ func CriarCliente(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"cliente": cliente})
 }
 
-// Atualizar Cliente
 func AtualizarCliente(c *gin.Context) {
 	var cliente models.Cliente
 	id := c.Param("id")
@@ -55,7 +51,6 @@ func AtualizarCliente(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"cliente": cliente})
 }
 
-// Deletar Cliente
 func DeletarCliente(c *gin.Context) {
 	var cliente models.Cliente
 	id := c.Param("id")
