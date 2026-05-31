@@ -1,13 +1,11 @@
 {
-  "name": "reactjs-vite-tailwindcss-boilerplate",
-  "description": "This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.",
-  "version": "0.1.0",
+  "name": "clinica-vet",
+  "description": "Sistema de gerenciamento para Cl\u00ednica Veterin\u00e1ria - React + Vite + TypeScript + Go + MySQL",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "author": {
-    "name": "Celso Carvalho Jr.",
-    "email": "celsomartinscarvalho@gmail.com",
-    "url": "https://github.com/celsoblackfyre"
+    "name": "Clinica Vet Team"
   },
   "scripts": {
     "dev": "vite",
@@ -16,7 +14,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint src --max-warnings=0",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "clean": "rm -rf node_modules dist && rm -f package-lock.json pnpm-lock.yaml"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -24,19 +23,13 @@
     "@mui/icons-material": "^5.15.21",
     "@mui/material": "^5.15.21",
     "axios": "^1.7.2",
-    "express": "^4.19.2",
-    "mongoose": "^8.4.4",
-    "pnpm": "^9.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0",
-    "wouter": "^3.3.0"
+    "react-router-dom": "^6.24.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^14.3.1",
-    "@types/express": "^4.17.21",
-    "@types/mongoose": "^5.11.97",
     "@types/node": "^20.14.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

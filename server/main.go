@@ -1,17 +1,38 @@
 package main
 
 import (
+	"log"
+	"os"
+	"strings"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	"ClinicaVet/database"
 	"ClinicaVet/handlers"
 )
 
 func main() {
+	// Load .env file if it exists (graceful if missing)
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found or error loading it. Using environment variables / defaults.")
+	}
+
 	r := gin.Default()
+
+	// Serve static assets (ensure the path is correct when running the binary)
 	r.Static("/assets", "./assets")
-	r.Use(cors.Default())
+
+	// Configurable CORS (much safer than cors.Default())
+	allowedOrigins := getAllowedOrigins()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     allowedOrigins,
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	database.Connect()
 
@@ -42,5 +63,28 @@ func main() {
 	r.PUT("/clientes/:id", handlers.AtualizarCliente)
 	r.DELETE("/clientes/:id", handlers.DeletarCliente)
 
-	r.Run(":8080")
+	port := getEnv("SERVER_PORT", "8080")
+	log.Printf("Starting ClinicaVet server on port %s", port)
+	r.Run(":" + port)
+}
+
+// getAllowedOrigins reads ALLOWED_ORIGINS from env (comma-separated)
+func getAllowedOrigins() []string {
+	originsStr := getEnv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+	if originsStr == "" {
+		return []string{"*"}
+	}
+	origins := strings.Split(originsStr, ",")
+	for i := range origins {
+		origins[i] = strings.TrimSpace(origins[i])
+	}
+	return origins
+}
+
+// getEnv helper (duplicated here to avoid import cycle during early bootstrap)
+func getEnv(key, fallback string) string {
+	if value, exists := os.LookupEnv(key); exists && value != "" {
+		return value
+	}
+	return fallback
 }

@@ -36,12 +36,12 @@ func CriarPet(c *gin.Context) {
 	var pet models.Pet
 
 	if err := c.ShouldBindJSON(&pet); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 
 	database.BD.Create(&pet)
-	c.JSON(http.StatusOK, gin.H{"pet": pet})
+	c.JSON(http.StatusCreated, gin.H{"pet": pet})
 }
 
 // Deletar Pet
@@ -57,7 +57,7 @@ func DeletarPet(c *gin.Context) {
 	}
 
 	database.BD.Delete(&pet)
-	c.JSON(http.StatusOK, gin.H{"pet": true})
+	c.JSON(http.StatusOK, gin.H{"message": "Pet deletado com sucesso"})
 }
 
 // Atualizar Pet
@@ -70,7 +70,7 @@ func AtualizarPet(c *gin.Context) {
 		return
 	}
 	if err := c.ShouldBindJSON(&pet); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 	database.BD.Save(&pet)

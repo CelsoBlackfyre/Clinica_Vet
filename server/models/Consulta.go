@@ -5,11 +5,11 @@ import (
 )
 
 type Consulta struct {
-	ID              int       `json:"consulta_id" gorm:"primaryKey"`
-	Data            time.Time `json:"data"`
+	ID              uint      `json:"id" gorm:"primaryKey"`
+	Data            time.Time `json:"data" binding:"required"`
 	Observacao      string    `json:"observacao"`
-	PetID           int       `json:"pet_id"`
-	VetID           int       `json:"vet_id"`
+	PetID           uint      `json:"pet_id" binding:"required"`
+	VetID           uint      `json:"vet_id" binding:"required"`
 	DataCadastro    time.Time `json:"data_cadastro"`
 	DataAtualizacao time.Time `json:"data_atualizacao"`
 	Pet             Pet       `json:"pet" gorm:"foreignKey:PetID"`

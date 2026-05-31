@@ -20,6 +20,10 @@ func GetCliente(c *gin.Context) {
 	var cliente models.Cliente
 	id := c.Param("id")
 	database.BD.First(&cliente, id)
+	if cliente.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Cliente nao encontrado"})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"cliente": cliente})
 }
 
@@ -27,11 +31,11 @@ func GetCliente(c *gin.Context) {
 func CriarCliente(c *gin.Context) {
 	var cliente models.Cliente
 	if err := c.ShouldBindJSON(&cliente); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 	database.BD.Create(&cliente)
-	c.JSON(http.StatusOK, gin.H{"cliente": cliente})
+	c.JSON(http.StatusCreated, gin.H{"cliente": cliente})
 }
 
 // Atualizar Cliente
@@ -44,7 +48,7 @@ func AtualizarCliente(c *gin.Context) {
 		return
 	}
 	if err := c.ShouldBindJSON(&cliente); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 	database.BD.Model(&cliente).Updates(cliente)
@@ -61,5 +65,5 @@ func DeletarCliente(c *gin.Context) {
 		return
 	}
 	database.BD.Delete(&cliente)
-	c.JSON(http.StatusOK, gin.H{"cliente": true})
+	c.JSON(http.StatusOK, gin.H{"message": "Cliente deletado com sucesso"})
 }

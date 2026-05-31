@@ -5,8 +5,8 @@ import (
 )
 
 type Vet struct {
-	ID              int        `json:"vet_id" gorm:"primaryKey"`
-	Nome            string     `json:"nome"`
+	ID              uint       `json:"id" gorm:"primaryKey"`
+	Nome            string     `json:"nome" binding:"required"`
 	Sobrenome       string     `json:"sobrenome"`
 	Telefone        string     `json:"telefone"`
 	DataCadastro    time.Time  `json:"data_cadastro"`

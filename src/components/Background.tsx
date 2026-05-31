@@ -1,7 +1,10 @@
 export default function Background() {
   return (
-    <>
-      <div className="absolute left-0 top-0 size-full bg-[url('/src/assets/pexels1.jpg')] bg-cover bg-center"></div>
-    </>
+    <div className="fixed inset-0 -z-10">
+      {/* Subtle background image */}
+      <div className="absolute inset-0 bg-[url('/src/assets/pexels1.jpg')] bg-cover bg-center opacity-40" />
+      {/* Soft white overlay so content is readable */}
+      <div className="absolute inset-0 bg-white/70" />
+    </div>
   )
 }

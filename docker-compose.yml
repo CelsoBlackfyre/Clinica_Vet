@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: clinica_vet_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-clinica_vet}
+      MYSQL_USER: ${DB_USER:-clinica}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-clinica123}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - clinica_vet_net
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: clinica_vet_backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_USER=${DB_USER:-clinica}
+      - DB_PASSWORD=${DB_PASSWORD:-clinica123}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-clinica_vet}
+      - SERVER_PORT=8080
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:5173,http://frontend:5173}
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    volumes:
+      - ./server:/app
+      - go_mod_cache:/go/pkg/mod
+    networks:
+      - clinica_vet_net
+    command: ["air"]   # Hot reload via air (see server/Dockerfile and air.toml)
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: clinica_vet_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8080   # For browser access
+    networks:
+      - clinica_vet_net
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  go_mod_cache:
+
+networks:
+  clinica_vet_net:
+    driver: bridge

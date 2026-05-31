@@ -21,6 +21,10 @@ func GetVet(c *gin.Context) {
 	var vet models.Vet
 	id := c.Param("id")
 	database.BD.First(&vet, id)
+	if vet.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Vet nao encontrado"})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"vet": vet})
 }
 
@@ -28,11 +32,11 @@ func GetVet(c *gin.Context) {
 func CriarVet(c *gin.Context) {
 	var vet models.Vet
 	if err := c.ShouldBindJSON(&vet); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 	database.BD.Create(&vet)
-	c.JSON(http.StatusOK, gin.H{"vet": vet})
+	c.JSON(http.StatusCreated, gin.H{"vet": vet})
 }
 
 // Atualizar Vet
@@ -45,7 +49,7 @@ func AtualizarVet(c *gin.Context) {
 		return
 	}
 	if err := c.ShouldBindJSON(&vet); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos", "details": err.Error()})
 		return
 	}
 	database.BD.Save(&vet)

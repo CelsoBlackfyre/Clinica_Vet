@@ -1,35 +1,60 @@
-import axios from 'axios'
+// Backward-compatible services layer.
+// New code should prefer importing from 'api/api' directly for better control.
 
-const api_url = 'http://localhost:8080'
+import {
+  clientesApi,
+  petsApi,
+  vetsApi,
+  consultasApi,
+} from 'api/api'
 
-// Redirecionamento de rotas
-// Clientes
-export const getClientes = () => axios.get(`${api_url}/clientes`)
-export const addCliente = (novoCliente: any) =>
-  axios.post(`${api_url}/clientes`, novoCliente)
-export const delCliente = (id: any) => axios.delete(`${api_url}/clientes/${id}`)
-export const updateCliente = (id: any, updatedCliente: any) =>
-  axios.put(`${api_url}/clientes/${id}`, updatedCliente)
+import type {
+  Cliente,
+  Pet,
+  Vet,
+  Consulta,
+} from 'types'
 
-// Pets
-export const getPets = () => axios.get(`${api_url}/pets`)
-export const addPet = (novoPet: any) => axios.post(`${api_url}/pets`, novoPet)
-export const delPet = (id: any) => axios.delete(`${api_url}/pets/${id}`)
-export const updatePet = (id: any, updatedPet: any) =>
-  axios.put(`${api_url}/pets/${id}`, updatedPet)
+// ========================
+// CLIENTES (legacy names kept for compatibility)
+// ========================
+export const getClientes = clientesApi.getAll
+export const getCliente = clientesApi.getById
+export const addCliente = clientesApi.create
+export const delCliente = clientesApi.delete
+export const updateCliente = clientesApi.update
 
-// Vets
-export const getVets = () => axios.get(`${api_url}/vets`)
-export const addVet = (novoVet: any) => axios.post(`${api_url}/vets`, novoVet)
-export const delVet = (id: any) => axios.delete(`${api_url}/vets/${id}`)
-export const updateVet = (id: any, updatedVet: any) =>
-  axios.put(`${api_url}/vets/${id}`, updatedVet)
+// ========================
+// PETS
+// ========================
+export const getPets = petsApi.getAll
+export const getPet = petsApi.getById
+export const addPet = petsApi.create
+export const delPet = petsApi.delete
+export const updatePet = petsApi.update
 
-// Consultas
-export const getConsultas = () => axios.get(`${api_url}/consultas`)
-export const addConsulta = (novoConsulta: any) =>
-  axios.post(`${api_url}/consultas`, novoConsulta)
-export const delConsulta = (id: any) =>
-  axios.delete(`${api_url}/consultas/${id}`)
-export const updateConsulta = (id: any, updatedConsulta: any) =>
-  axios.put(`${api_url}/consultas/${id}`, updatedConsulta)
+// ========================
+// VETS
+// ========================
+export const getVets = vetsApi.getAll
+export const getVet = vetsApi.getById
+export const addVet = vetsApi.create
+export const delVet = vetsApi.delete
+export const updateVet = vetsApi.update
+
+// ========================
+// CONSULTAS
+// ========================
+export const getConsultas = consultasApi.getAll
+export const getConsulta = consultasApi.getById
+export const addConsulta = consultasApi.create
+export const delConsulta = consultasApi.delete
+export const updateConsulta = consultasApi.update
+
+// Re-export the new clean APIs for gradual migration
+export {
+  clientesApi,
+  petsApi,
+  vetsApi,
+  consultasApi,
+} from 'api/api'
